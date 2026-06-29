@@ -1,0 +1,16 @@
+# Backend
+backend/data.db
+backend/web/
+backend/autopowerhub.exe
+backend/autopowerhub-arm64
+backend/autopowerhub-arm
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Go
+*.exe
+
+# IDE
+.vscode/*.log

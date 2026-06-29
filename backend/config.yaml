@@ -1,0 +1,19 @@
+server:
+  port: 8081
+
+jwt:
+  secret: CHANGE_ME_IN_PRODUCTION1
+
+sqlite:
+  path: ./data.db
+
+admin:
+  username: admin
+  password: admin
+
+devices:
+  - name: DevelopMachine
+    mac: "10:B4:1D:15:10:6E"
+    service_uuid: "12345678-1234-1234-1234-1234567890ab"
+    characteristic_uuid: "abcdefab-1234-5678-1234-abcdefabcdef"
+    enabled: true

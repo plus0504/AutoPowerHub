@@ -1,0 +1,69 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Backend: Build (Windows)",
+      "type": "shell",
+      "command": "go build -o autopowerhub.exe ./cmd",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$go"]
+    },
+    {
+      "label": "Backend: Build (Linux ARM64)",
+      "type": "shell",
+      "command": "go build -o autopowerhub-arm64 ./cmd",
+      "options": {
+        "cwd": "${workspaceFolder}/backend",
+        "env": {
+          "GOOS": "linux",
+          "GOARCH": "arm64",
+          "CGO_ENABLED": "0"
+        }
+      },
+      "group": "build",
+      "problemMatcher": ["$go"]
+    },
+    {
+      "label": "Backend: Build (Linux ARM)",
+      "type": "shell",
+      "command": "go build -o autopowerhub-arm ./cmd",
+      "options": {
+        "cwd": "${workspaceFolder}/backend",
+        "env": {
+          "GOOS": "linux",
+          "GOARCH": "arm",
+          "GOARM": "7",
+          "CGO_ENABLED": "0"
+        }
+      },
+      "group": "build",
+      "problemMatcher": ["$go"]
+    },
+    {
+      "label": "Frontend: Build",
+      "type": "shell",
+      "command": "npm run build",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend"
+      },
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Build All (ARM64 + Frontend)",
+      "dependsOn": [
+        "Frontend: Build",
+        "Backend: Build (Linux ARM64)"
+      ],
+      "dependsOrder": "sequence",
+      "group": "build",
+      "problemMatcher": []
+    }
+  ]
+}
