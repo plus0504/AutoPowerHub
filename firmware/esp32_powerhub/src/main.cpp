@@ -84,7 +84,9 @@ class CommandCallbacks : public NimBLECharacteristicCallbacks {
 
 // ── Setup ─────────────────────────────────────────────────────────────────────
 void setup() {
+    #ifdef DEBUG_SERIAL
     Serial.begin(115200);
+    #endif
     Serial.println("[BOOT] AutoPowerHub starting...");
 
     // Servo initialisation – restrict to standard 1000–2000 µs range to prevent
@@ -111,7 +113,7 @@ void setup() {
 
     // BLE initialisation.
     NimBLEDevice::init("PowerHub");
-    NimBLEDevice::setPower(ESP_PWR_LVL_P9);
+    NimBLEDevice::setPower(ESP_PWR_LVL_N0);
 
     NimBLEServer* pServer = NimBLEDevice::createServer();
     NimBLEService* pService = pServer->createService(SERVICE_UUID);

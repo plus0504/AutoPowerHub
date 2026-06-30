@@ -1,5 +1,6 @@
 # Backend
 backend/data.db
+backend/cozylife_devices.json
 backend/web/
 backend/autopowerhub.exe
 backend/autopowerhub-arm64

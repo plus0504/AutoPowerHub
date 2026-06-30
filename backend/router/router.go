@@ -17,6 +17,7 @@ func Setup(
 	authH *handler.AuthHandler,
 	deviceH *handler.DeviceHandler,
 	debugH *handler.DebugHandler,
+	cozylifeH *handler.CozyLifeHandler,
 	authSvc *authsvc.Service,
 	baseDir string, // directory containing config.yaml; all static paths are relative to this
 ) *gin.Engine {
@@ -33,6 +34,10 @@ func Setup(
 			protected.POST("/device/:id/power", deviceH.Power)
 			protected.POST("/device/:id/test", deviceH.Test)
 			protected.GET("/debug/device/:id/scan", debugH.BLEScan)
+
+			protected.GET("/switches", cozylifeH.ListSwitches)
+			protected.POST("/switches/:ip/on", cozylifeH.TurnOn)
+			protected.POST("/switches/:ip/off", cozylifeH.TurnOff)
 		}
 	}
 

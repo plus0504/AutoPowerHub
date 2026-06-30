@@ -14,6 +14,7 @@ import (
 	"autopowerhub/router"
 	authsvc "autopowerhub/service/auth"
 	blesvc "autopowerhub/service/ble"
+	cozylifesvc "autopowerhub/service/cozylife"
 	devicesvc "autopowerhub/service/device"
 )
 
@@ -39,6 +40,12 @@ func main() {
 		cfg.SQLite.Path = filepath.Join(baseDir, cfg.SQLite.Path)
 	}
 
+	// Resolve cozylife devices path relative to baseDir.
+	cozyLifeDevicesPath := cfg.CozyLife.DevicesPath
+	if cozyLifeDevicesPath != "" && !filepath.IsAbs(cozyLifeDevicesPath) {
+		cozyLifeDevicesPath = filepath.Join(baseDir, cozyLifeDevicesPath)
+	}
+
 	db, err := database.Init(cfg)
 	if err != nil {
 		log.Fatalf("init database: %v", err)
@@ -60,8 +67,9 @@ func main() {
 	authHandler := handler.NewAuthHandler(authService)
 	deviceHandler := handler.NewDeviceHandler(deviceService)
 	debugHandler := handler.NewDebugHandler(deviceRepo, bleMgr)
+	cozylifeHandler := handler.NewCozyLifeHandler(cozylifesvc.NewService(cozyLifeDevicesPath))
 
-	r := router.Setup(authHandler, deviceHandler, debugHandler, authService, baseDir)
+	r := router.Setup(authHandler, deviceHandler, debugHandler, cozylifeHandler, authService, baseDir)
 
 	addr := fmt.Sprintf(":%d", cfg.Server.Port)
 	log.Printf("AutoPowerHub starting on %s (base: %s)", addr, baseDir)

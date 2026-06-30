@@ -11,6 +11,11 @@ admin:
   username: admin
   password: admin
 
+cozylife:
+  # Path to devices.json produced by the cozylife CLI (cozylife scan ... --save).
+  # Relative paths are resolved from the directory containing this config file.
+  devices_path: ./cozylife_devices.json
+
 devices:
   - name: DevelopMachine
     mac: "10:B4:1D:15:10:6E"

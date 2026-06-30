@@ -39,3 +39,22 @@ export const powerDevice = (id: number) =>
 
 export const testDevice = (id: number) =>
   api.post<{ message: string }>(`/device/${id}/test`)
+
+// CozyLife switches
+export interface CozySwitch {
+  ip: string
+  did: string
+  pid: string
+  dmn: string
+  dpid: number[]
+  device_type_code: string
+}
+
+export const getSwitches = () =>
+  api.get<{ switches: CozySwitch[] }>('/switches')
+
+export const switchOn = (ip: string) =>
+  api.post<{ message: string }>(`/switches/${ip}/on`)
+
+export const switchOff = (ip: string) =>
+  api.post<{ message: string }>(`/switches/${ip}/off`)

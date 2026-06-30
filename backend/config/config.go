@@ -21,7 +21,10 @@ type Config struct {
 		Username string `yaml:"username"`
 		Password string `yaml:"password"`
 	} `yaml:"admin"`
-	Devices []DeviceConfig `yaml:"devices"`
+	Devices  []DeviceConfig `yaml:"devices"`
+	CozyLife struct {
+		DevicesPath string `yaml:"devices_path"`
+	} `yaml:"cozylife"`
 }
 
 type DeviceConfig struct {
